@@ -1,0 +1,13 @@
+<template>
+  <div>
+    <NuxtLayout>
+      <Alert/>
+      <Navbar/>
+      <Breakline/>
+      <Detailed/>
+      <ReviewList/>
+      <Suggest/>
+      <Footer/>
+    </NuxtLayout>
+  </div>
+</template>
