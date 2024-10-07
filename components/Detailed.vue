@@ -1,23 +1,11 @@
 <template>
   <div class="product-page flex flex-col lg:flex-row space-y-6 lg:space-y-0 lg:space-x-10 p-5">
     <!-- left side -->
-    <div class="image-gallery w-full lg:w-1/3 flex flex-row space-x-4 lg:space-x-0">
-      <!-- thumbnails -->
-      <div class="thumbnails flex flex-col space-y-4 w-1/4">
-        <img
-          v-for="(thumb, index) in thumbnails"
-          :key="index"
-          :src="thumb"
-          @click="changeMainImage(thumb)"
-          class="thumbnail w-16 cursor-pointer"
-        />
-      </div>
-
-      <!-- main img -->
-      <div class="main-image w-full">
-        <img :src="mainImage" alt="Main product image" class="w-full" />
-      </div>
-    </div>
+    <ImageGallery
+      :thumbnails="thumbnails"
+      :mainImage="mainImage"
+      @update-main-image="changeMainImage"
+    />
 
     <!-- right side -->
     <div class="product-details w-full lg:w-2/3 space-y-4">
@@ -82,29 +70,26 @@
         </div>
       </div>
       <div class="border-t border-gray-300 w-4/5"></div>
-<!-- quantity -->
-<div class="flex flex-col lg:flex-row items-center space-x-6">
-  <div class="flex items-center space-x-2 bg-gray-200 rounded-full px-4 pb-1">
-    <button @click="decreaseQuantity" class="px-2 text-3xl bg-gray-200 rounded">-</button>
-    <span class="text-lg font-semibold">{{ quantity }}</span>
-    <button @click="increaseQuantity" class="px-2 text-2xl bg-gray-200 rounded">+</button>
-  </div>
 
-  <!-- add button -->
-  <button class="mt-4 lg:mt-0 w-full lg:w-auto px-4 lg:px-56 py-2 bg-black text-white rounded-full hover:bg-slate-600">
-  Add to Cart
-</button>
+      <!-- quantity -->
+      <QuantitySelector :initialQuantity="quantity" @update-quantity="updateQuantity" />
 
-
-</div>
-
+      <!-- add button -->
+      <button class="mt-4 lg:mt-0 w-full lg:w-auto px-4 lg:px-56 py-2 bg-black text-white rounded-full hover:bg-slate-600">
+        Add to Cart
+      </button>
     </div>
   </div>
 </template>
 
-
 <script>
+import ImageGallery from './ImageGallery.vue';
+import QuantitySelector from './QuantitySelector.vue';
 export default {
+  components: {
+    ImageGallery,
+    QuantitySelector,
+  },
   data() {
     return {
       mainImage: '../img/main.png',
@@ -135,28 +120,9 @@ export default {
       this.sizes.forEach((s) => (s.selected = false));
       size.selected = true;
     },
-    decreaseQuantity() {
-      if (this.quantity > 1) this.quantity--;
-    },
-    increaseQuantity() {
-      this.quantity++;
+    updateQuantity(newQuantity) {
+      this.quantity = newQuantity;
     },
   },
 };
 </script>
-
-<style scoped>
-.thumbnail {
-  transition: border-color 0.3s;
-}
-.thumbnail:hover {
-  outline: none;
-  border: none;
-}
-.main-image img {
-  max-height: 100%;
-}
-.product-details button {
-  transition: background-color 0.3s;
-}
-</style>
