@@ -24,13 +24,13 @@
             placeholder="Search for products..."
             class="mx-4 px-10 py-2 rounded-full bg-gray-100 border-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-200 w-96"
           />
-          <i class="fas fa-search absolute top-1/2 transform -translate-y-1/2 left-7 text-gray-500"></i>
+          <i  class="fas fa-search absolute top-1/2 transform -translate-y-1/2 left-7 text-gray-500"></i>
         </div>
         <nuxt-link to="/cart" class="text-gray-700">
-        <i class="fas fa-shopping-cart"></i>
+        <svg-icon class="w-5" name="cart" />
       </nuxt-link>
       <nuxt-link to="/profile" class="text-gray-700">
-        <i class="fas fa-user"></i>
+        <svg-icon class="w-5" name="user" />
       </nuxt-link>
       </div>
     </div>

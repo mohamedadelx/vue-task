@@ -31,4 +31,12 @@ export default defineNuxtConfig({
     },
   },
   
+  modules: [
+    '@nuxtjs/svg-sprite',
+  ],
+  svgSprite: {
+    // manipulate module options
+    input: '~/assets/sprite/svg/', // This should point to the directory containing your SVG files
+    defaultSprite: 'icons',
+  },
 })
