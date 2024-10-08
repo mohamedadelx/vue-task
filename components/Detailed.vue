@@ -44,7 +44,7 @@
             :class="[color.selected ? 'border-black' : 'border-transparent']"
             :style="{ backgroundColor: color.hex }"
           >
-         <!--checkmark-->
+          <!--checkmark-->
             <div v-if="color.selected" class="absolute inset-0 bg-black bg-opacity-25 flex justify-center items-center rounded-full">
               <svg xmlns="" class="h-5 w-5 text-white" viewBox="0 0 20 20" fill="currentColor">
                 <path fill-rule="evenodd" d="M16.707 5.293a1 1 0 00-1.414 0L8 12.586l-3.293-3.293a1 1 0 00-1.414 1.414l4 4a1 1 0 001.414 0l8-8a1 1 0 000-1.414z" clip-rule="evenodd" />
@@ -83,46 +83,62 @@
 </template>
 
 <script>
+import { reactive, ref } from 'vue';
 import ImageGallery from './ImageGallery.vue';
 import QuantitySelector from './QuantitySelector.vue';
+
 export default {
   components: {
     ImageGallery,
     QuantitySelector,
   },
-  data() {
-    return {
-      mainImage: '../img/main.png',
-      thumbnails: ['../img/main.png', '../img/main2.png', '../img/main3.png'],
-      colors: [
-        { hex: '#5A513A', selected: true },
-        { hex: '#3E5955', selected: false },
-        { hex: '#2C2D4E', selected: false },
-      ],
-      sizes: [
-        { label: 'Small', selected: false },
-        { label: 'Medium', selected: false },
-        { label: 'Large', selected: true },
-        { label: 'X-Large', selected: false },
-      ],
-      quantity: 1,
+  setup() {
+    // state manage using ref & reactive
+    const mainImage = ref('../img/main.png');
+    const thumbnails = ref(['../img/main.png', '../img/main2.png', '../img/main3.png']);
+    const colors = reactive([
+      { hex: '#5A513A', selected: true },
+      { hex: '#3E5955', selected: false },
+      { hex: '#2C2D4E', selected: false },
+    ]);
+    const sizes = reactive([
+      { label: 'Small', selected: false },
+      { label: 'Medium', selected: false },
+      { label: 'Large', selected: true },
+      { label: 'X-Large', selected: false },
+    ]);
+    const quantity = ref(1);
+
+    // methods
+    const changeMainImage = (image) => {
+      mainImage.value = image;
     };
-  },
-  methods: {
-    changeMainImage(image) {
-      this.mainImage = image;
-    },
-    selectColor(color) {
-      this.colors.forEach((c) => (c.selected = false));
+
+    const selectColor = (color) => {
+      colors.forEach((c) => (c.selected = false));
       color.selected = true;
-    },
-    selectSize(size) {
-      this.sizes.forEach((s) => (s.selected = false));
+    };
+
+    const selectSize = (size) => {
+      sizes.forEach((s) => (s.selected = false));
       size.selected = true;
-    },
-    updateQuantity(newQuantity) {
-      this.quantity = newQuantity;
-    },
+    };
+
+    const updateQuantity = (newQuantity) => {
+      quantity.value = newQuantity;
+    };
+
+    return {
+      mainImage,
+      thumbnails,
+      colors,
+      sizes,
+      quantity,
+      changeMainImage,
+      selectColor,
+      selectSize,
+      updateQuantity,
+    };
   },
 };
 </script>

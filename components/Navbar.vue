@@ -1,4 +1,5 @@
 <template>
+  <Alert/>
     <div class="flex items-center justify-center p-8">
       <div class="flex items-center space-x-4">
         <div class="text-3xl font-bold mx-4 font-candal">SHOP.CO</div>
@@ -32,6 +33,6 @@
         <i class="fas fa-user"></i>
       </nuxt-link>
       </div>
-      
     </div>
+    <Breakline/>
   </template>

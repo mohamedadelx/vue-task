@@ -1,13 +1,10 @@
+<script setup lang="ts">
+</script>
+
 <template>
   <div>
     <NuxtLayout>
-      <Alert/>
-      <Navbar/>
-      <Breakline/>
-      <Detailed/>
-      <ReviewList/>
-      <Suggest/>
-      <Footer/>
+      <NuxtPage/>
     </NuxtLayout>
   </div>
 </template>

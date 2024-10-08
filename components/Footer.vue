@@ -5,13 +5,16 @@
       STAY UPTO DATE ABOUT <br> OUR LATEST OFFERS
      </h1>
      <div class="flex flex-col items-center space-y-6">
-  <input 
-    class="w-80 px-10 py-2 rounded-full text-black" 
-    placeholder="Enter your email address" 
-    type="email" 
-  />
+      <input 
+      v-model="email" 
+      class="w-80 px-10 py-2 rounded-full text-black" 
+      placeholder="Enter your email address" 
+      type="email"
+    />
+    <span v-if="errors.email" class="text-red-500">{{ errors.email }}</span>
   <button 
-    class="w-80 bg-white text-black px-16 py-2 rounded-full"
+  @click="submitForm"  
+  class="w-80 bg-white text-black px-16 py-2 rounded-full"
   >
     Subscribe to Newsletter
   </button>
@@ -169,3 +172,36 @@
     </div>
    </footer>
    </template>
+
+<script>
+import { ref } from 'vue';
+import { useForm, useField } from 'vee-validate';
+import * as yup from 'yup';
+
+export default {
+  setup() {
+    // define schema
+    const schema = yup.object({
+      email: yup.string().email('Invalid email format').required('Email is required'),
+    });
+
+    // initialize form and fields
+    const { handleSubmit, errors } = useForm({
+      validationSchema: schema,
+    });
+
+    const { value: email } = useField('email');
+
+    // submission handler
+    const submitForm = handleSubmit((values) => {
+      console.log('Form Submitted:', values);
+    });
+
+    return {
+      email,
+      errors,
+      submitForm,
+    };
+  },
+};
+</script>
