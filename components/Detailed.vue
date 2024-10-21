@@ -11,12 +11,10 @@
     <div class="product-details w-full lg:w-2/3 space-y-4">
       <!-- title + rating -->
       <div>
+      <div>
         <h1 class="text-4xl font-bold font-candal pb-4">ONE LIFE GRAPHIC T-SHIRT</h1>
-        <div class="flex items-center space-x-1 text-yellow-500">
-          <i class="fas fa-star"></i><i class="fas fa-star"></i><i class="fas fa-star"></i>
-          <i class="fas fa-star"></i><i class="fas fa-star-half-alt"></i>
-          <span class="text-sm text-gray-500 ml-2"><span class="text-black">4.5</span>/5</span>
-        </div>
+        <StarRating :rating="4.5"/>
+      </div>
       </div>
 
       <!-- price -->
