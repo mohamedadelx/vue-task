@@ -4,36 +4,40 @@
       {{ title }}
     </h1>
 
+    <div v-if="isFetching">Loading...</div>
+    <div v-if="error">{{ error.message }}</div>
     <!-- swiper -->
-    <swiper-container class="mySwiper" :slides-per-view="4" :loop="true" :space-between="20">
-      <swiper-slide v-for="(item, index) in products" :key="index">
+    <swiper-container v-if="data && data.products && data.products.items.length > 0" class="mySwiper" :slides-per-view="4" :loop="true" :space-between="20">
+      <swiper-slide v-for="(item, index) in data.products.items" :key="index">
         <div
-  class="text-center cursor-pointer transform transition-transform duration-300 hover:scale-90"
-  @click="navigateToProduct(item)"
->          <div class="relative mx-auto mb-4 w-full aspect-w-1 aspect-h-1">
-            <img :alt="item.alt" :src="item.src" />
+          class="text-center cursor-pointer transform transition-transform duration-300 hover:scale-90"
+          @click="navigateToProduct(item)"
+        >
+          <div class="relative mx-auto mb-4 w-full aspect-w-1 aspect-h-1">
+            <img :alt="item.name" :src="item.small_image.url" />
           </div>
-          <p class="text-lg">{{ item.title }}</p>
+          <p class="text-lg">{{ item.name }}</p>
           <!-- star rating -->
-          <StarRating :rating="item.rating" class="justify-center" />
+          <StarRating :rating="item.rating || 4" class="justify-center" />
           <p class="text-xl font-bold">
-            {{ item.price }}
-            <span v-if="item.oldPrice" class="line-through text-gray-500">{{ item.oldPrice }}</span>
-            <span v-if="item.discount" class="text-sm font-semibold text-red-500 bg-red-200 bg-opacity-60 px-2 py-1 ml-2 rounded-xl">
-              {{ item.discount }}
-            </span>
+            {{ item.special_price ? item.special_price + ' EGP' : 'Price not available' }}
           </p>
         </div>
       </swiper-slide>
     </swiper-container>
+    <div v-else>No products available</div>
   </div>
 </template>
 
 <script>
-import { Swiper as SwiperContainer, SwiperSlide as SwiperSlide } from 'swiper/vue';
+import { Swiper as SwiperContainer, SwiperSlide } from 'swiper/vue';
 import 'swiper/swiper-bundle.css';
 import StarRating from './StarRating.vue';
 import { useRouter } from 'vue-router';
+import { useQuery, useClient } from 'villus';
+import { useRuntimeConfig } from '#imports';
+
+
 
 export default {
   props: {
@@ -42,71 +46,55 @@ export default {
       required: true,
       default: 'YOU MIGHT ALSO LIKE',
     },
-    products: {
-      type: Array,
-      required: true,
-      default: () => [
-        {
-          id:1,
-          title: 'Polo with Contrast Trims',
-          src: '/img/s1.png',
-          alt: 'Polo with Contrast Trims',
-          rating: 4.0,
-          price: '$212',
-          oldPrice: '$242',
-          discount: '-20%',
-        },
-        {
-          id:2,
-          title: 'Gradient Graphic T-shirt',
-          src: '/img/s2.png',
-          alt: 'Gradient Graphic T-shirt',
-          rating: 3.5,
-          price: '$145',
-        },
-        {
-          id:3,
-          title: 'Polo with Tipping Details',
-          src: '/img/s3.png',
-          alt: 'Polo with Tipping Details',
-          rating: 4.5,
-          price: '$180',
-        },
-        {
-          id:4,
-          title: 'Black Striped T-shirt',
-          src: '/img/s4.png',
-          alt: 'Black Striped T-shirt',
-          rating: 5.0,
-          price: '$120',
-          oldPrice: '$160',
-          discount: '-30%',
-        },
-        {
-          id:5,
-          title: 'Polo with Tipping Details',
-          src: '/img/s3.png',
-          alt: 'Polo with Tipping Details',
-          rating: 4.5,
-          price: '$180',
-        },
-      ],
-    },
   },
+
   components: {
     SwiperContainer,
     SwiperSlide,
     StarRating,
   },
   setup() {
+
+//     const config = useRuntimeConfig();
+//     const graphqlUrl = config.public.GRAPHQL_URL;
+
+// useClient({
+//   url: graphqlUrl,
+// });
+
+    useClient({
+      url: "https://fitandfixstaging.hypernode.io/graphql",
+    });
+
+    const GetProductsQuery = `
+    {
+      products (pageSize: 10, filter:{}) {
+        items{
+          name
+          uid
+          url_key
+          special_price
+          small_image{
+            url
+          }
+        }
+      }
+    }
+    `;
+
+    const { data, error, isFetching } = useQuery({
+      query: GetProductsQuery,
+    });
+
     const router = useRouter();
 
     const navigateToProduct = (item) => {
-
-      router.push({ path: '/', query: { product: item.title } });
+      router.push({ path: '/single', query: { product: item.url_key } });
     };
 
-    return { navigateToProduct };
+    console.log(data);
+
+    return { data, error, isFetching, navigateToProduct };
   },
 };
 </script>

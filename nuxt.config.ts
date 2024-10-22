@@ -1,4 +1,3 @@
-// https://nuxt.com/docs/api/configuration/nuxt-config
 import { resolve } from "path"
 
 export default defineNuxtConfig({
@@ -44,14 +43,14 @@ export default defineNuxtConfig({
     defaultSprite: 'icons',
   },
 
+  //plugins
+  plugins: [
+    '~/plugins/villus.client.js',
+  ],
+
   runtimeConfig: {
     public: {
-      graphqlBaseUrl: process.env.GRAPHQL_BASE_URL, 
+      graphqlUrl: process.env.GRAPHQL_URL,
     },
   },
-
-  // plugins
-  plugins: [
-    '~/plugins/villus.ts',
-  ],
 })

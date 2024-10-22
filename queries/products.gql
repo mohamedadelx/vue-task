@@ -1,0 +1,13 @@
+query GetProductsQuery {
+  products(pageSize: 10, filter: {}) {
+    items {
+      name
+      uid
+      url_key
+      special_price
+      small_image {
+        url
+      }
+    }
+  }
+}
