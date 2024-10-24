@@ -87,10 +87,9 @@ export default {
     });
 
     const router = useRouter();
-
     const navigateToProduct = (item) => {
-      router.push({ path: '/single', query: { product: item.url_key } });
-    };
+  router.push({ path: `/products/${item.url_key}` });
+};
 
     console.log(data);
 

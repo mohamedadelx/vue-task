@@ -1,8 +1,14 @@
+<script setup lang="ts">
+
+</script>
+
 <template>
   <Alert/>
     <div class="flex items-center justify-center">
       <div class="flex items-center space-x-4">
+        <NuxtLink to="/">
         <div class="text-3xl font-bold mx-4 font-candal">SHOP.CO</div>
+        </NuxtLink>
         <div class="flex items-center space-x-4">
           <div class="relative group">
             <button class="text-gray-700">Shop <i class="fas fa-chevron-down"></i></button>
