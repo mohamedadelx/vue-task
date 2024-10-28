@@ -1,7 +1,7 @@
 <template>
     <div class="flex items-center space-x-1">
       <i
-        v-for="(star, index) in fullStars"
+        v-for="(index) in fullStars"
         :key="index"
         class="fas fa-star text-yellow-500"
       ></i>
@@ -10,7 +10,7 @@
         class="fas fa-star-half-alt text-yellow-500"
       ></i>
       <i
-        v-for="(star, index) in emptyStars"
+        v-for="(index) in emptyStars"
         :key="'empty-' + index"
         class="fas fa-star text-gray-300"
       ></i>
@@ -41,4 +41,3 @@
     },
   };
   </script>
-  

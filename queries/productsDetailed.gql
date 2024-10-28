@@ -1,0 +1,14 @@
+query GetProductByKey($urlKey: String!) {
+  products(pageSize: 30, filter: { url_key: { eq: $urlKey } }) {
+    items {
+      name
+      special_price
+      categories {
+        description
+      }
+      small_image {
+        url
+      }
+    }
+  }
+}

@@ -1,20 +1,19 @@
 import { resolve } from "path"
-
+import graphqlLoader from "vite-plugin-graphql-loader";
+import { defineNuxtConfig } from "nuxt/config";
 export default defineNuxtConfig({
   pages: true,
   compatibilityDate: '2024-04-03',
   devtools: { enabled: true },
   alias: {
-    "@": resolve(__dirname, "/"), // To import dynamically
+    "@": resolve(__dirname, "/"),
   },
   css: [
    
     "~/assets/main.css",
     '@fortawesome/fontawesome-free/css/all.css',
   ],
-  
-  
-  // Add Google Fonts link to head
+
   app: {
     head: {
       link: [
@@ -38,15 +37,20 @@ export default defineNuxtConfig({
   ],
 
   svgSprite: {
-    // manipulate module options
     input: '~/assets/sprite/svg/',
     defaultSprite: 'icons',
   },
 
-  //plugins
   plugins: [
-    '~/plugins/villus.client.js',
+    {src: '~/plugins/villus.client.js'},
   ],
+
+
+  vite: {
+    plugins: [
+      graphqlLoader(),
+    ]
+  },
 
   runtimeConfig: {
     public: {

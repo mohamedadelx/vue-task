@@ -15,11 +15,11 @@
 </template>
 
 <script>
-import StarRating from './StarRating.vue'; // Import your StarRating component
+import StarRating from './StarRating.vue';
 
 export default {
   components: {
-    StarRating, // Register the component
+    StarRating,
   },
   props: {
     review: {

@@ -1,9 +1,7 @@
 import { createClient } from 'villus';
-
 export default defineNuxtPlugin((nuxtApp) => {
   const client = createClient({
-    url: 'https://fitandfixstaging.hypernode.io/graphql', //endpoint
+    url: useRuntimeConfig().public.graphqlUrl, //endpoint
   });
-
   nuxtApp.provide('villus', client);
 });

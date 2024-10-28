@@ -1,4 +1,3 @@
-/** @type {import('tailwindcss').Config} */
 export default {
   content: [
     "./components/**/*.{js,vue,ts}",
@@ -11,7 +10,7 @@ export default {
   theme: {
     extend: {
       fontFamily: {
-        candal: ['Candal', 'sans-serif'], // Add Candal font here
+        candal: ['Candal', 'sans-serif'],
       },
     },
   },

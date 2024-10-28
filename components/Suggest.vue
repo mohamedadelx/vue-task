@@ -3,7 +3,6 @@
     <h1 class="text-2xl md:text-5xl md:pb-10 font-bold text-center mb-8 font-candal">
       {{ title }}
     </h1>
-
     <div v-if="isFetching">Loading...</div>
     <div v-if="error">{{ error.message }}</div>
     <!-- swiper -->
@@ -33,11 +32,9 @@
 import { Swiper as SwiperContainer, SwiperSlide } from 'swiper/vue';
 import 'swiper/swiper-bundle.css';
 import StarRating from './StarRating.vue';
-import { useRouter } from 'vue-router';
 import { useQuery, useClient } from 'villus';
-import { useRuntimeConfig } from '#imports';
-
-
+import { useRouter } from 'vue-router';
+import GetProductsQuery from '../queries/products.gql';
 
 export default {
   props: {
@@ -55,44 +52,13 @@ export default {
   },
   setup() {
 
-//     const config = useRuntimeConfig();
-//     const graphqlUrl = config.public.GRAPHQL_URL;
-
-// useClient({
-//   url: graphqlUrl,
-// });
-
-    useClient({
-      url: "https://fitandfixstaging.hypernode.io/graphql",
-    });
-
-    const GetProductsQuery = `
-    {
-      products (pageSize: 10, filter:{}) {
-        items{
-          name
-          uid
-          url_key
-          special_price
-          small_image{
-            url
-          }
-        }
-      }
-    }
-    `;
-
     const { data, error, isFetching } = useQuery({
       query: GetProductsQuery,
     });
-
     const router = useRouter();
     const navigateToProduct = (item) => {
   router.push({ path: `/products/${item.url_key}` });
 };
-
-    console.log(data);
-
     return { data, error, isFetching, navigateToProduct };
   },
 };

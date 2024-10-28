@@ -1,4 +1,4 @@
-query GetProductsQuery {
+query ProductsDetailed {
   products(pageSize: 10, filter: {}) {
     items {
       name

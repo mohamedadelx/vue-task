@@ -81,9 +81,10 @@
 <script>
 import { ref, reactive, watchEffect } from 'vue';
 import { useRoute } from 'vue-router';
-import { useQuery, useClient } from 'villus';
+import { useQuery } from 'villus';
 import ImageGallery from './ImageGallery.vue';
 import QuantitySelector from './QuantitySelector.vue';
+import GetProductByKeyQuery from '../queries/productsDetailed.gql';
 
 export default {
   components: {
@@ -107,10 +108,6 @@ export default {
     const route = useRoute();
     const urlKey = route.params.url_key;
 
-    useClient({
-      url: "https://fitandfixstaging.hypernode.io/graphql",
-    });
-
     const product = reactive({
       name: '',
       special_price: null,
@@ -121,24 +118,6 @@ export default {
     const mainImage = ref('');
     const thumbnails = ref([]);
     const quantity = ref(1);
-
-    const GetProductByKeyQuery = `
-      query ($urlKey: String!) {
-        products(pageSize:30, filter: { url_key: { eq: $urlKey } }) {
-          items {
-            name
-            special_price
-            categories{
-            description
-            }
-            small_image { 
-              url
-            }
-
-          }
-        }
-      }
-    `;
 
     const { data } = useQuery({
       query: GetProductByKeyQuery,
