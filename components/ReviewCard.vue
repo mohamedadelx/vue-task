@@ -1,5 +1,5 @@
 <template>
-  <div class="review-card p-6 bg-white border rounded-lg shadow-sm">
+  <div class="review-card p-6 bg-white border rounded-3xl shadow-sm">
     <!-- rating -->
     <StarRating :rating="review.rating" />
 
@@ -15,7 +15,7 @@
 </template>
 
 <script>
-import StarRating from './StarRating.vue';
+import StarRating from "./StarRating.vue";
 
 export default {
   components: {

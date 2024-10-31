@@ -1,8 +1,8 @@
 <script setup>
-import { useClient } from 'villus';
-import { useRuntimeConfig } from '#app';
+import { useClient } from "villus";
+import { useRuntimeConfig } from "#app";
 const config = useRuntimeConfig();
-    const urlaya = config.public.graphqlUrl;
+const urlaya = config.public.graphqlUrl;
 useClient({
   url: urlaya,
 });
@@ -10,7 +10,7 @@ useClient({
 <template>
   <div>
     <NuxtLayout>
-      <NuxtPage/>
+      <NuxtPage />
     </NuxtLayout>
   </div>
 </template>

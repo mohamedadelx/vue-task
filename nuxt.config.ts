@@ -1,28 +1,31 @@
-import { resolve } from "path"
+import { resolve } from "path";
 import graphqlLoader from "vite-plugin-graphql-loader";
 import { defineNuxtConfig } from "nuxt/config";
+
 export default defineNuxtConfig({
   pages: true,
-  compatibilityDate: '2024-04-03',
+  compatibilityDate: "2024-04-03",
   devtools: { enabled: true },
+
   alias: {
     "@": resolve(__dirname, "/"),
   },
+
   css: [
-   
     "~/assets/main.css",
-    '@fortawesome/fontawesome-free/css/all.css',
+    "@fortawesome/fontawesome-free/css/all.css",
+    "~/assets/fonts.css",
   ],
 
   app: {
     head: {
       link: [
         {
-          rel: 'stylesheet',
-          href: 'https://fonts.googleapis.com/css2?family=Candal&display=swap'
-        }
-      ]
-    }
+          rel: "stylesheet",
+          href: "https://fonts.googleapis.com/css2?family=Candal&display=swap",
+        },
+      ],
+    },
   },
 
   postcss: {
@@ -32,24 +35,12 @@ export default defineNuxtConfig({
     },
   },
 
-  modules: [
-    '@nuxtjs/svg-sprite',
-  ],
+  modules: ["@nuxtjs/svg-sprite"],
 
-  svgSprite: {
-    input: '~/assets/sprite/svg/',
-    defaultSprite: 'icons',
-  },
-
-  plugins: [
-    {src: '~/plugins/villus.client.js'},
-  ],
-
+  plugins: [{ src: "~/plugins/villus.client.js" }],
 
   vite: {
-    plugins: [
-      graphqlLoader(),
-    ]
+    plugins: [graphqlLoader()],
   },
 
   runtimeConfig: {
@@ -57,4 +48,4 @@ export default defineNuxtConfig({
       graphqlUrl: process.env.GRAPHQL_URL,
     },
   },
-})
+});

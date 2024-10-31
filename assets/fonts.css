@@ -1,0 +1,19 @@
+@font-face {
+  font-family: "Integral CF";
+  src:
+    url("~assets/fonts/Fontspring-DEMO-integralcf-regular.otf") format("otf"),
+    url("~assets/fonts/Fontspring-DEMO-integralcf-regularoblique.otf")
+      format("otf");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Integral CF";
+  src:
+    url("~assets/fonts/Fontspring-DEMO-integralcf-bold.otf") format("otf"),
+    url("~assets/fonts/Fontspring-DEMO-integralcf-boldoblique.otf")
+      format("otf");
+  font-weight: bold;
+  font-style: normal;
+}

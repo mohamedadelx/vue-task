@@ -1,7 +1,7 @@
 <template>
-    <div>
-        <Detailed/>
-        <ReviewList/>
-        <Suggest/>
-    </div>
+  <div>
+    <Detailed />
+    <ReviewList />
+    <Suggest class="container" />
+  </div>
 </template>
